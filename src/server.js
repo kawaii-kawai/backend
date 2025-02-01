@@ -7,7 +7,7 @@ const productRoutes = require("./routes/productRoutes");
 
 const app = express();
 
-app.use(cors());
+app.use(cors({ origin: "https://frontend-eta-eight-48.vercel.app/" }));
 app.use(express.json());
 
 mongoose.connect(process.env.MONGO_URI, {
