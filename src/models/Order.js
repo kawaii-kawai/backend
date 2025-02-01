@@ -6,6 +6,7 @@ const orderSchema = new mongoose.Schema({
         quantity: { type: Number, required: true }
     }],
     total: { type: Number, required: true },
+    payment: { type: String, required: true },
     createdAt: { type: Date, default: Date.now }
 });
 
