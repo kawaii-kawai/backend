@@ -7,7 +7,11 @@ const productRoutes = require("./routes/productRoutes");
 
 const app = express();
 
-app.use(cors({ origin: "https://frontend-eta-eight-48.vercel.app" }));
+app.use(cors({
+    origin: "https://frontend-eta-eight-48.vercel.app",
+    methods: "GET,POST,PUT,DELETE",
+    credentials: true
+}));
 app.use(express.json());
 
 app.use((req, res, next) => {
