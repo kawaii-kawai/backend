@@ -8,7 +8,9 @@ const orderSchema = new mongoose.Schema({
     total: { type: Number, required: true },
     payment: { type: String, required: true },
     tableNumber: { type: String },
-    createdAt: { type: Date, default: Date.now }
+    createdAt: { type: Date, default: Date.now },
+    createtime: { type: String, required: true },
+    hash: { type: String, required: true }
 });
 
 module.exports = mongoose.model('Order', orderSchema);
