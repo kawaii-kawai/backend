@@ -2,8 +2,8 @@ const Order = require('../models/Order');
 
 exports.createOrder = async (req, res) => {
     try {
-        const { items, total, payment, tableNumber } = req.body;
-        const order = new Order({ items, total, payment, tableNumber });
+        const { items, total, payment, tableNumber, createtime } = req.body;
+        const order = new Order({ items, total, payment, tableNumber, createtime });
         await order.save();
         res.status(201).json(order);
     } catch (error) {
