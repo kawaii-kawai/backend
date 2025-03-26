@@ -4,10 +4,10 @@ const mongoose = require("mongoose");
 const cors = require("cors");
 const orderRoutes = require("./routes/orderRoutes");
 const productRoutes = require("./routes/productRoutes");
+const hygieneRoutes = require("./routes/hygieneRoutes");
 
 const app = express();
 
-// 'http://localhost:5173, https://frontend-eta-eight-48.vercel.app'
 app.use(cors({
     origin: ["http://localhost:5173", "https://frontend-eta-eight-48.vercel.app"],
     methods: "GET,POST,PUT,DELETE",
@@ -27,6 +27,7 @@ mongoose.connect(process.env.MONGO_URI, {
 
 app.use("/api/orders", orderRoutes);
 app.use("/api/products", productRoutes);
+app.use("/api/hygiene", hygieneRoutes);
 
 const PORT = process.env.PORT || 5000;
 app.listen(PORT, () => console.log(`Server running on port ${PORT}`));
