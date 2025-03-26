@@ -2,8 +2,7 @@ const Hygiene = require('../models/Hygiene');
 
 exports.createHygiene = async (req, res) => {
     try {
-        const { item, type } = req.body;
-        const hygiene = new Hygiene({ item, type });
+        const hygiene = new Hygiene(req.body);
         await hygiene.save();
         res.status(201).json(hygiene);
     } catch (error) {
