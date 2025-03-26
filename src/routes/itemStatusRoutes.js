@@ -1,5 +1,5 @@
 const express = require('express');
-const { createItemStatus, getItemStatus, deleteItemStatus } = require('../controllers/itemStatusController');
+const { createItemStatus, getItemStatus, deleteItemStatus, updateItemStatus } = require('../controllers/itemStatusController');
 
 const router = express.Router();
 
