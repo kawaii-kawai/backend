@@ -19,6 +19,10 @@ exports.getItemStatus = async (req, res) => {
     }
 }
 
+exports.findById = async (id) => {
+    return await itemStatusController.findById(id);
+}
+
 exports.deleteItemStatus = async (req, res) => {
     try {
         const itemStatus = await itemStatusController.findById(req.params.id);
