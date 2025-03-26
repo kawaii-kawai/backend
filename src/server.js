@@ -9,7 +9,7 @@ const app = express();
 
 // 'http://localhost:5173, https://frontend-eta-eight-48.vercel.app'
 app.use(cors({
-    origin: "'http://localhost:5173",
+    origin: ["http://localhost:5173", "https://frontend-eta-eight-48.vercel.app"],
     methods: "GET,POST,PUT,DELETE",
     credentials: true
 }));
