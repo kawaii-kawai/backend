@@ -8,7 +8,7 @@ const productRoutes = require("./routes/productRoutes");
 const app = express();
 
 app.use(cors({
-    origin: "https://frontend-eta-eight-48.vercel.app",
+    origin: true,
     methods: "GET,POST,PUT,DELETE",
     credentials: true
 }));
