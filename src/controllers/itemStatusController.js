@@ -19,8 +19,16 @@ exports.getItemStatus = async (req, res) => {
     }
 }
 
-exports.findById = async (id) => {
-    return await itemStatusController.findById(id);
+exports.findById = async (req, res) => {
+    try {
+        const itemStatus = await itemStatusController.findById(req.params.id);
+        if (!itemStatus) {
+            return res.status(404).json({ message: 'ItemStatus not found' });
+        }
+        res.json(itemStatus);
+    } catch (error) {
+        res.status(500).json({ message: error.message });
+    }
 }
 
 exports.deleteItemStatus = async (req, res) => {
