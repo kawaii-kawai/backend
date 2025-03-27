@@ -27,7 +27,7 @@ exports.getOrders = async (req, res) => {
             query.createdAt = { $gte: startOfDayUTC, $lte: endOfDayUTC };
         }
 
-        const orders = await Order.find(query).sort({ createdAt: -1 });
+        const orders = await Order.find(query).sort({ createdAt: -1 }).populate('items.product');
         res.json(orders);
     } catch (error) {
         res.status(500).json({ message: error.message });
