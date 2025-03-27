@@ -12,12 +12,26 @@ exports.createHygiene = async (req, res) => {
 
 exports.getHygiene = async (req, res) => {
     try {
-        const hygiene = await Hygiene.find();
-        res.json(hygiene);
+        const { date, item } = req.query;
+        let query = {};
+
+        if (date) {
+            const startOfDayUTC = new Date(`${date}T00:00:00.000Z`);
+            const endOfDayUTC = new Date(`${date}T23:59:59.999Z`);
+            query.createdAt = { $gte: startOfDayUTC, $lte: endOfDayUTC };
+        }
+
+        if (item) {
+            query.item = { $regex: new RegExp(item, 'i') };
+        }
+
+        const records = await Hygiene.find(query).sort({ createdAt: -1 });
+        res.json(records);
     } catch (error) {
         res.status(500).json({ message: error.message });
     }
 }
+
 
 exports.deleteHygiene = async (req, res) => {
     try {
