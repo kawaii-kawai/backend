@@ -13,7 +13,21 @@ exports.createOrder = async (req, res) => {
 
 exports.getOrders = async (req, res) => {
     try {
-        const orders = await Order.find().populate('items.product');
+        const { date } = req.query;
+        let query = {};
+        if (date) {
+            // 日本時間の開始時刻（UTC+9）を作成
+            const startOfDayJST = new Date(`${date}T00:00:00.000+09:00`);
+            const endOfDayJST = new Date(`${date}T23:59:59.999+09:00`);
+
+            // UTCに変換
+            const startOfDayUTC = new Date(startOfDayJST.toUTCString());
+            const endOfDayUTC = new Date(endOfDayJST.toUTCString());
+
+            query.createdAt = { $gte: startOfDayUTC, $lte: endOfDayUTC };
+        }
+
+        const orders = await Order.find(query).sort({ createdAt: -1 });
         res.json(orders);
     } catch (error) {
         res.status(500).json({ message: error.message });
