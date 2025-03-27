@@ -14,17 +14,20 @@ exports.getHygiene = async (req, res) => {
     try {
         const { date, item } = req.query;
         let query = {};
-
         if (date) {
-            const startOfDayUTC = new Date(`${date}T00:00:00.000Z`);
-            const endOfDayUTC = new Date(`${date}T23:59:59.999Z`);
+            // 日本時間の開始時刻（UTC+9）を作成
+            const startOfDayJST = new Date(`${date}T00:00:00.000+09:00`);
+            const endOfDayJST = new Date(`${date}T23:59:59.999+09:00`);
+
+            // UTCに変換
+            const startOfDayUTC = new Date(startOfDayJST.toUTCString());
+            const endOfDayUTC = new Date(endOfDayJST.toUTCString());
+
             query.createdAt = { $gte: startOfDayUTC, $lte: endOfDayUTC };
         }
-
         if (item) {
             query.item = { $regex: new RegExp(item, 'i') };
         }
-
         const records = await Hygiene.find(query).sort({ createdAt: -1 });
         res.json(records);
     } catch (error) {
