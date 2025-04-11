@@ -26,7 +26,7 @@ exports.getHygiene = async (req, res) => {
             query.createdAt = { $gte: startOfDayUTC, $lte: endOfDayUTC };
         }
         if (item) {
-            query.item = { $regex: new RegExp(item, 'i') };
+            query.item = item;
         }
         const records = await Hygiene.find(query).sort({ createdAt: -1 });
         res.json(records);
@@ -38,11 +38,10 @@ exports.getHygiene = async (req, res) => {
 
 exports.deleteHygiene = async (req, res) => {
     try {
-        const hygiene = await Hygiene.findById(req.params.id);
+        const hygiene = await Hygiene.findByIdAndDelete(req.params.id);
         if (!hygiene) {
             return res.status(404).json({ message: 'Hygiene not found' });
         }
-        await hygiene.deleteOne();
         res.json({ message: 'Hygiene removed' });
     } catch (error) {
         res.status(500).json({ message: error.message });

@@ -7,7 +7,7 @@ const hygieneSchema = new mongoose.Schema({
     createdAt: { type: Date, default: Date.now },
 });
 
-hygieneSchema.index({ rotation: 1, item: 1 });
-hygieneSchema.index({ rotation: 1, type: 1 });
+hygieneSchema.index({ createdAt: -1 });
+hygieneSchema.index({ item: 1 });
 
 module.exports = mongoose.model('Hygiene', hygieneSchema);
