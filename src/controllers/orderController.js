@@ -1,9 +1,33 @@
 const Order = require('../models/Order');
+const Counter = require('../models/Counter');
 
-exports.createOrder = async (req, res) => {
+// 通し番号を取得する関数
+async function getNextSequence(name) {
+    const ret = await Counter.findOneAndUpdate(
+        { _id: name },
+        { $inc: { seq: 1 } },
+        { new: true, upsert: true }
+    );
+    return ret.seq;
+}
+
+exports.createOrder = async (req, res) => { 
     try {
-        const { items, total, payment, tableNumber, createtime } = req.body;
-        const order = new Order({ items, total, payment, tableNumber, createtime });
+        const { items, total, payment, tableNumber, orderType, createtime } = req.body;
+
+        // 通し番号を発行
+        const orderNumber = await getNextSequence("orderNumber");
+
+        const order = new Order({ 
+            orderNumber,
+            items, 
+            total, 
+            payment, 
+            tableNumber, 
+            orderType, 
+            createdAt: createtime || Date.now()
+        });
+
         await order.save();
         res.status(201).json(order);
     } catch (error) {
