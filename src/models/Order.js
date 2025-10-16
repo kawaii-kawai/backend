@@ -12,6 +12,7 @@ const orderSchema = new mongoose.Schema({
     tableNumber: { type: String },
 
     orderType: { type: String, enum: ['eat-in', 'takeout'], required: true }, // イートイン/テイクアウト区別
+    customerCount: { type: Number, required: true },
 
     createdAt: { type: Date, default: Date.now },
 });

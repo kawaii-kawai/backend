@@ -25,6 +25,7 @@ exports.createOrder = async (req, res) => {
             payment, 
             tableNumber, 
             orderType, 
+            customerCount,
             createdAt: createtime || Date.now()
         });
 
