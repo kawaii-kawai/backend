@@ -13,7 +13,7 @@ async function getNextSequence(name) {
 
 exports.createOrder = async (req, res) => { 
     try {
-        const { items, total, payment, tableNumber, orderType, createtime } = req.body;
+        const { items, total, payment, tableNumber, orderType, createtime, customerCount } = req.body;
 
         // 通し番号を発行
         const orderNumber = await getNextSequence("orderNumber");
