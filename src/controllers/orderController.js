@@ -26,9 +26,8 @@ exports.createOrder = async (req, res) => {
             tableNumber, 
             orderType, 
             customerCount,
-            createdAt: createtime || Date.now()
+            createdAt: Date.now()
         });
-
         await order.save();
         res.status(201).json(order);
     } catch (error) {
